@@ -8,7 +8,10 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Pakt Payments — варианты баннера" },
-      { name: "description", content: "Сравнение трёх вариантов уведомления о проблемах с SSL на странице оплаты." },
+      {
+        name: "description",
+        content: "Сравнение трёх вариантов уведомления о проблемах с SSL на странице оплаты.",
+      },
     ],
   }),
   component: Index,
@@ -23,7 +26,9 @@ function MockPaymentPage({ variant }: { variant: Variant }) {
       {variant === "C" && <VariantCTopBar />}
       <header className="border-b border-slate-200 bg-white px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-lg font-bold tracking-tight text-slate-900">PAKT<span className="text-amber-500">.</span>payments</div>
+          <div className="text-lg font-bold tracking-tight text-slate-900">
+            PAKT<span className="text-amber-500">.</span>payments
+          </div>
           <div className="text-sm text-slate-500">Оплата заказа №A-10234</div>
         </div>
       </header>
@@ -35,7 +40,9 @@ function MockPaymentPage({ variant }: { variant: Variant }) {
       {/* Имитация формы оплаты */}
       <main className="px-6 py-8">
         <h1 className="text-xl font-semibold text-slate-900">Оплата заказа</h1>
-        <p className="mt-1 text-sm text-slate-500">Сумма к оплате: <span className="font-semibold text-slate-900">12 480 ₽</span></p>
+        <p className="mt-1 text-sm text-slate-500">
+          Сумма к оплате: <span className="font-semibold text-slate-900">12 480 ₽</span>
+        </p>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <div className="rounded-lg border border-slate-200 p-4">
@@ -76,7 +83,8 @@ function Index() {
             Варианты баннера для payments.pakt.ru
           </h1>
           <p className="mt-1 text-sm text-slate-600">
-            Переключайтесь между вариантами и сравнивайте. Состояние «закрыт» хранится в sessionStorage.
+            Переключайтесь между вариантами и сравнивайте. Состояние «закрыт» хранится в
+            sessionStorage.
           </p>
         </div>
 
@@ -109,9 +117,18 @@ function Index() {
         <div className="mt-6 rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-700">
           <p className="font-semibold text-slate-900">Подсказка</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li><b>A</b> — амбер-баннер под шапкой, текст краткий + раскрывающиеся подробности, крестик скрывает на сессию.</li>
-            <li><b>B</b> — красный alert с аккордеоном «Как решить», кнопки СБП и установки сертификата.</li>
-            <li><b>C</b> — постоянная жёлтая полоска поверх шапки + модалка с полной инструкцией при первом заходе.</li>
+            <li>
+              <b>A</b> — амбер-баннер под шапкой, текст краткий + раскрывающиеся подробности,
+              крестик скрывает на сессию.
+            </li>
+            <li>
+              <b>B</b> — красный alert с аккордеоном «Как решить», кнопки СБП и установки
+              сертификата.
+            </li>
+            <li>
+              <b>C</b> — постоянная жёлтая полоска поверх шапки + модалка с полной инструкцией при
+              первом заходе.
+            </li>
           </ul>
         </div>
       </div>
