@@ -9,7 +9,8 @@ export function VariantCTopBar() {
       <div className="mx-auto flex max-w-5xl items-center justify-center gap-2 px-4 py-1.5 text-xs sm:text-sm font-medium">
         <AlertTriangle size={14} />
         <span>
-          ⚠️ Возможны проблемы с оплатой из-за отзыва сертификатов. Используйте СБП (оплата по QR-коду).
+          ⚠️ Возможны проблемы с оплатой из-за отзыва сертификатов. Используйте СБП (оплата по
+          QR-коду).
         </span>
       </div>
     </div>
@@ -46,16 +47,13 @@ export function VariantCModal() {
 
         <div className="mb-3 flex items-center gap-2">
           <AlertTriangle className="text-amber-500" size={22} />
-          <h2 className="text-lg font-semibold text-slate-900">
-            Уважаемые клиенты!
-          </h2>
+          <h2 className="text-lg font-semibold text-slate-900">Уважаемые клиенты!</h2>
         </div>
 
         <div className="space-y-3 text-sm leading-relaxed text-slate-700">
           <p>
-            В связи с отзывом SSL-сертификатов у ряда банков при переходе на
-            платёжную страницу может появиться предупреждение о небезопасном
-            соединении или белый экран.
+            В связи с отзывом SSL-сертификатов у ряда банков при переходе на платёжную страницу
+            может появиться предупреждение о небезопасном соединении или белый экран.
           </p>
           <div>
             <p className="font-medium text-slate-900">Чтобы избежать проблем с оплатой:</p>

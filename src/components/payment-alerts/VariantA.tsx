@@ -25,11 +25,10 @@ export function VariantA() {
       <div className="mx-auto flex max-w-5xl items-start gap-3 px-4 py-3">
         <AlertTriangle className="mt-0.5 shrink-0" size={20} />
         <div className="flex-1 text-sm leading-relaxed">
-          <strong>Внимание!</strong> Из-за отзыва SSL-сертификатов у некоторых
-          банков возможны проблемы с переходом на платёжную страницу. Если вы
-          видите предупреждение о небезопасном соединении или белый экран,
-          воспользуйтесь альтернативным способом оплаты — например, через СБП
-          (QR-код).{" "}
+          <strong>Внимание!</strong> Из-за отзыва SSL-сертификатов у некоторых банков возможны
+          проблемы с переходом на платёжную страницу. Если вы видите предупреждение о небезопасном
+          соединении или белый экран, воспользуйтесь альтернативным способом оплаты — например,
+          через СБП (QR-код).{" "}
           <button
             onClick={() => setShowDetails((v) => !v)}
             className="font-medium underline underline-offset-2 hover:text-amber-700"
