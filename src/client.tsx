@@ -23,9 +23,12 @@ startTransition(() => {
     throw new Error("Root element not found");
   }
 
+  const router = getRouter();
+  router.routeTree.options.shellComponent = ({ children }) => <>{children}</>;
+
   createRoot(rootElement).render(
     <StrictMode>
-      <RouterProvider router={getRouter()} />
+      <RouterProvider router={router} />
     </StrictMode>,
   );
 });
