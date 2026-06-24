@@ -1,13 +1,25 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+const base = process.env.BASE_PATH
+  ? `/${process.env.BASE_PATH.replace(/^\/|\/$/g, "")}/`
+  : "/";
+
 export default defineConfig({
   tanstackStart: {
-    // Настройка сервера для SSR (если используется)
     server: { entry: "server" },
+    // Prerender '/' to a static index.html so GitHub Pages has something to serve.
+    // Combined with createHashHistory in src/router.tsx, the SPA handles all
+    // subsequent routing client-side.
+    prerender: {
+      enabled: true,
+      crawlLinks: false,
+      routes: ["/"],
+    },
+    pages: [{ path: "/" }],
   },
   vite: {
-    // ВАЖНО: прописываем базовый путь для GitHub Pages
-    // Это добавит /payment-buddy-connect/ перед всеми ссылками на скрипты и стили
-    base: "/payment-buddy-connect/",
+    // For project pages: https://<user>.github.io/<repo>/
+    // Set BASE_PATH=<repo> in CI; falls back to "/" for local dev.
+    base,
   },
 });
