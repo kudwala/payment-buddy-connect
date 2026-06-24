@@ -31,39 +31,25 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Build
-        # GitHub Pages serves from a sub-path (https://<user>.github.io/<repo>/)
-        # if this is a project page. BASE_PATH is consumed by Vite via env if configured.
         env:
           BASE_PATH: ${{ github.event.repository.name }}
         run: bun run build
 
-      - name: Resolve static output directory
-        id: outdir
-        run: |
-          if [ -d ".output/public" ]; then
-            echo "dir=.output/public" >> "$GITHUB_OUTPUT"
-          elif [ -d "dist" ]; then
-            echo "dir=dist" >> "$GITHUB_OUTPUT"
-          else
-            echo "No static output directory found (.output/public or dist)." >&2
-            exit 1
-          fi
+      - name: Generate static index.html for GitHub Pages
+        env:
+          BASE_PATH: ${{ github.event.repository.name }}
+        run: node scripts/gen-pages-index.mjs
 
-      - name: Verify static index.html exists & add SPA fallback
+      - name: Verify output
         run: |
-          DIR="${{ steps.outdir.outputs.dir }}"
-          if [ ! -f "$DIR/index.html" ]; then
-            echo "::error::No index.html in $DIR — prerender did not run. Check vite.config.ts tanstackStart.prerender."
-            ls -la "$DIR"
-            exit 1
-          fi
-          cp "$DIR/index.html" "$DIR/404.html"
-
+          test -f dist/client/index.html || { echo "::error::dist/client/index.html missing"; ls -la dist/client; exit 1; }
+          ls -la dist/client
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ steps.outdir.outputs.dir }}
+          path: dist/client
+
 
   deploy:
     name: Deploy to GitHub Pages
