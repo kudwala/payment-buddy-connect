@@ -24,7 +24,9 @@ startTransition(() => {
   }
 
   const router = getRouter();
-  (router.routeTree.options as { shellComponent?: (props: { children: ReactNode }) => ReactNode }).shellComponent = ({ children }) => <>{children}</>;
+  (router.routeTree.options as {
+    shellComponent?: (props: { children: ReactNode }) => ReactNode;
+  }).shellComponent = ({ children }) => <>{children}</>;
 
   createRoot(rootElement).render(
     <StrictMode>
