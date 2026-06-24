@@ -49,9 +49,16 @@ jobs:
             exit 1
           fi
 
-      - name: Add SPA fallback (404.html = index.html)
+      - name: Verify static index.html exists & add SPA fallback
         run: |
-          cp "${{ steps.outdir.outputs.dir }}/index.html" "${{ steps.outdir.outputs.dir }}/404.html" || true
+          DIR="${{ steps.outdir.outputs.dir }}"
+          if [ ! -f "$DIR/index.html" ]; then
+            echo "::error::No index.html in $DIR — prerender did not run. Check vite.config.ts tanstackStart.prerender."
+            ls -la "$DIR"
+            exit 1
+          fi
+          cp "$DIR/index.html" "$DIR/404.html"
+
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
