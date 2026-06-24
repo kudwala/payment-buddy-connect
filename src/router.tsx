@@ -5,11 +5,13 @@ import { routeTree } from "./routeTree.gen";
 export const getRouter = () => {
   const queryClient = new QueryClient();
 
-  // Hash history requires `window` and crashes during SSR/prerender.
-  // On the server we let the router use its default memory history;
-  // on the client we use hash history for GitHub Pages compatibility.
+  // Hash history is only for the handcrafted static GitHub Pages shell.
+  // When TanStack Start provides SSR bootstrap data, keep the default history
+  // so server and client route matching stay identical during hydration.
   const history =
-    typeof window !== "undefined" ? createHashHistory() : undefined;
+    typeof window !== "undefined" && !(window as { $_TSR?: unknown }).$_TSR
+      ? createHashHistory()
+      : undefined;
 
   const router = createRouter({
     routeTree,
