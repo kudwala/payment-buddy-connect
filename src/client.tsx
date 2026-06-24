@@ -1,4 +1,4 @@
-import { StrictMode, startTransition } from "react";
+import { StrictMode, startTransition, type ReactNode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { StartClient } from "@tanstack/react-start/client";
 import { RouterProvider } from "@tanstack/react-router";
@@ -24,7 +24,7 @@ startTransition(() => {
   }
 
   const router = getRouter();
-  router.routeTree.options.shellComponent = ({ children }) => <>{children}</>;
+  (router.routeTree.options as { shellComponent?: (props: { children: ReactNode }) => ReactNode }).shellComponent = ({ children }) => <>{children}</>;
 
   createRoot(rootElement).render(
     <StrictMode>
