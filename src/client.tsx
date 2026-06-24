@@ -5,14 +5,10 @@ import { RouterProvider } from "@tanstack/react-router";
 
 import { getRouter } from "./router";
 
-declare global {
-  interface Window {
-    $_TSR?: unknown;
-  }
-}
-
 startTransition(() => {
-  if (window.$_TSR) {
+  const hasSsrBootstrap = Boolean((window as { $_TSR?: unknown }).$_TSR);
+
+  if (hasSsrBootstrap) {
     hydrateRoot(
       document,
       <StrictMode>
