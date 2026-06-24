@@ -7,7 +7,7 @@
  * client entry. The app uses createHashHistory on the client, so this single
  * HTML file handles every route.
  */
-import { readdirSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const CLIENT_DIR = "dist/client";
@@ -19,7 +19,16 @@ if (!existsSync(ASSETS_DIR)) {
 }
 
 const files = readdirSync(ASSETS_DIR);
-const entry = files.find((f) => /^index-.*\.js$/.test(f));
+const manifestPath = join(CLIENT_DIR, ".vite", "manifest.json");
+
+function findEntryFromManifest() {
+  if (!existsSync(manifestPath)) return undefined;
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const entryChunk = Object.values(manifest).find((chunk) => chunk?.isEntry && chunk?.file);
+  return entryChunk?.file?.replace(/^assets\//, "");
+}
+
+const entry = findEntryFromManifest() ?? files.find((f) => /^index-.*\.js$/.test(f));
 const css = files.find((f) => /\.css$/.test(f));
 
 if (!entry) {
