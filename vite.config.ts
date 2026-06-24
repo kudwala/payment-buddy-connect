@@ -6,10 +6,8 @@ const base = process.env.BASE_PATH
 
 export default defineConfig({
   tanstackStart: {
-    server: { entry: "server" },
-    // Prerender '/' to a static index.html so GitHub Pages has something to serve.
-    // Combined with createHashHistory in src/router.tsx, the SPA handles all
-    // subsequent routing client-side.
+    // Prerender '/' to produce a static index.html for GitHub Pages.
+    // Hash history (src/router.tsx) handles all other routes on the client.
     prerender: {
       enabled: true,
       crawlLinks: false,
@@ -18,8 +16,6 @@ export default defineConfig({
     pages: [{ path: "/" }],
   },
   vite: {
-    // For project pages: https://<user>.github.io/<repo>/
-    // Set BASE_PATH=<repo> in CI; falls back to "/" for local dev.
     base,
   },
 });
